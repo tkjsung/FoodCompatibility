@@ -21,7 +21,6 @@ def gui_test():
     # scroll = tk.Scrollbar(command=frame1)
     # scroll.pack(side=tk.RIGHT, fill=tk.Y)
 
-
     # Title Text
     lb_title = tk.Label(master=root, text="Food Compatibility Search Tool")
     lb_title.config(font=("Helvetica", 24))
@@ -75,8 +74,6 @@ def gui_test():
     # root_scroll.config(command=root.yview)  # Frames (and windows, for that matter) do not have yview attribute
     # Consider using tk.Canvas.
     root.mainloop()
-    # TODO: Try Canvas by copying the gui_test() function into a new function and see if Canvas can
-    #       do scrolling
 
 
 def gui_training():
@@ -144,7 +141,67 @@ def gui_scrollbar():
     root.mainloop()
 
 
+def gui_canvas():
+    root = tk.Tk()
+    root.title("Tkinter Canvas Test")
+    root.geometry("700x500+370+200")  # (width x height + XPOS on monitor + YPOS on monitor
+    root.grid_rowconfigure(0, weight=1)
+    root.grid_columnconfigure(0, weight=1)
+
+    w = tk.Canvas(master=root)
+    scroll = tk.Scrollbar(command=w)
+    scroll.pack(side=tk.RIGHT, fill=tk.Y)
+
+    for i in range(0, 100):
+        tk.Label(master=w, text="This is a test\n").pack()
+
+    scroll.config(command=w.yview)
+    w.pack()
+    root.mainloop()
+
+
+def gui_frameInframe():
+    root = tk.Tk()
+    root.title("Test Frame in Frame")
+    root.geometry("700x500+370+200")  # (width x height + XPOS on monitor + YPOS on monitor
+    root.grid_rowconfigure(0, weight=1)
+    root.grid_columnconfigure(0, weight=1)
+
+    main_frame = tk.LabelFrame(master=root)
+
+    canvas = tk.Canvas(master=main_frame)
+    canvas.pack(side=tk.LEFT, fill="both", expand="yes")
+
+    scroll = tk.Scrollbar(master=main_frame, command=canvas.yview)
+    scroll.pack(side=tk.RIGHT, fill=tk.Y)
+
+    canvas.config(yscrollcommand=scroll.set)
+    canvas.bind("<Configure>", lambda e: canvas.configure(scrollregion=canvas.bbox("all")))
+    canvas.bind_all("<MouseWheel>", lambda e: canvas.yview_scroll(-1*int((e.delta/120)), "units"))
+
+    sub_frame1 = tk.LabelFrame(master=canvas)
+    # sub_frame1.pack(side="top", fill="both", expand='yes', padx=100, pady=10)  # This will do nothing b/c...
+    # ...sub_frame1 is being added to a window in the Canvas.
+    # root.update()
+    # canvas.update()
+    canvas_width = canvas.winfo_reqwidth()
+    canvas_height = canvas.winfo_reqheight()
+    canvas.create_window((0, 0), window=sub_frame1, anchor="n")
+
+    for i in range(0, 100):
+        tk.Label(master=sub_frame1, text=f"This is a test {i+1}").pack()
+
+    main_frame.pack(side="top", fill="both", expand="yes", padx=10, pady=10)
+    root.mainloop()
+
+
 if __name__ == '__main__':
-    gui_test()
+    # gui_test()
     # gui_scrollbar()
     # gui_training()
+    # gui_canvas()
+    gui_frameInframe()
+    # TODO: Forget about using Canvas to scroll the entire app.
+    #   Either find a third-party library that does scrolling easier (don't use Tkinter)
+    #   Or manipulate existing stuff to scroll
+    #   For next time, figure out how to make things searchable.

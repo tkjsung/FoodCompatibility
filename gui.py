@@ -10,6 +10,8 @@ import tkinter as tk
 lang = ''
 
 
+# Every testing element function below is implemented in gui_test to see how the app can be built.
+# This is similar to gui_app.py but with lots of comments and experimentation
 def gui_test():
     # Window Size ############
     win_width = 900
@@ -92,6 +94,7 @@ def gui_test():
     print("test123")
 
 
+# Literally testing how frames work
 def gui_training():
     root = tk.Tk()
     root.title("GUI Testing Code")
@@ -138,6 +141,7 @@ def gui_training():
     root.mainloop()
 
 
+# Testing scrollbar implementation on the textbox (tk.Text)
 def gui_scrollbar():
     root = tk.Tk()
 
@@ -157,6 +161,7 @@ def gui_scrollbar():
     root.mainloop()
 
 
+# Testing Canvas to see if whole window scrolling is feasible or not.
 def gui_canvas():
     root = tk.Tk()
     root.title("Tkinter Canvas Test")
@@ -176,6 +181,7 @@ def gui_canvas():
     root.mainloop()
 
 
+# Testing how frame within a frame behaviour works.
 def gui_frameInframe():
     root = tk.Tk()
     root.title("Test Frame in Frame")
@@ -211,6 +217,7 @@ def gui_frameInframe():
     root.mainloop()
 
 
+# Testing how to get search button working with on_button command
 def gui_searchButton():
     def on_button():
         searchTerm = entry.get()
@@ -225,6 +232,7 @@ def gui_searchButton():
     print("test123")
 
 
+# Testing dropdown menu for choice selection
 def gui_choice():
     # Window Size ############
     win_width = 900
@@ -283,14 +291,74 @@ def gui_choice():
     # print("test123")
 
 
+# Testing using Grid Manager instead of a mix of Pack and Grid to get the same expansion effect
+# Currently not working as desired.
+def gui_frameGridTest():
+    # Window Size ############
+    win_width = 900
+    win_height = 500
+    win_xpos = 370
+    win_ypos = 200
+
+    # Create window ############
+    root = tk.Tk()
+    root.title("Food Compatibility Search Tool")
+    root.geometry(f"{win_width}x{win_height}+{win_xpos}+{win_ypos}")  # (width x height + XPOS + YPOS on monitor)
+    root.grid_rowconfigure(0, weight=1)
+    root.grid_columnconfigure(0, weight=1)
+
+    # Create frames needed for this app ############
+    frame_main = tk.LabelFrame(master=root)
+    frame_dropdown = tk.LabelFrame(master=frame_main)
+
+    # frame_title: Title Text ############
+    frame_title = tk.LabelFrame(master=frame_main)
+    lb_title = tk.Label(master=frame_title, text="Food Compatibility Search Tool")
+    lb_title.config(font=("Helvetica", 24))
+    lb_title.grid(row=0, column=1)
+    # lb_title.pack(side=tk.TOP)
+    frame_title.grid(row=0, column=0, sticky='n')
+    # frame_title.pack(side=tk.TOP, anchor='n')
+
+    frame_main.grid_rowconfigure(0, weight=1)
+    frame_main.grid_columnconfigure(0, weight=1)
+
+    # frame_dropdown: Dropdown Menu Frame Contents ############
+    label_lang = tk.Label(master=frame_dropdown, text="Language: ")
+    label_searchType = tk.Label(master=frame_dropdown, text="Search Type: ")
+    label_lang.grid(row=0, column=0)
+    label_searchType.grid(row=1, column=0)
+
+    optionsList_lang = ['English (EN)', 'Mandarin (ZH)']
+    optionsList_searchType = ['Search by Term', 'Search by Entry No.']
+
+    var_lang = tk.StringVar(master=frame_dropdown)
+    var_lang.set(optionsList_lang[0])
+    var_searchType = tk.StringVar(master=frame_dropdown)
+    var_searchType.set(optionsList_searchType[0])
+
+    option_lang = tk.OptionMenu(frame_dropdown, var_lang, *optionsList_lang)
+    option_lang.grid(row=0, column=1, sticky='e')
+    option_searchType = tk.OptionMenu(frame_dropdown, var_searchType, *optionsList_searchType)
+    option_searchType.grid(row=1, column=1, sticky='e')
+
+    # frame_dropdown.pack(side=tk.TOP, anchor='ne')
+    frame_dropdown.grid(row=0, column=1, sticky='ne')
+
+    # frame_main.pack(side='top', fill='both', expand='yes', padx=10, pady=10)
+    frame_main.grid(padx=10, pady=10, sticky='nswe')
+
+    root.mainloop()
+
+
 if __name__ == '__main__':
-    # gui_test()
+    gui_test()
     # gui_scrollbar()
     # gui_training()
     # gui_canvas()
     # gui_frameInframe()
     # gui_searchButton()
-    gui_choice()
+    # gui_choice()
     print("123")
     # TODO: Forget about using Canvas to scroll the entire app.
     #   Either find a third-party library that does scrolling easier (don't use Tkinter)

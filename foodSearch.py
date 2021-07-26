@@ -103,14 +103,14 @@ def display_results(data):
 
 if __name__ == '__main__':
     df = read_db()  # Read database file
-    # out = get_input()  # Get search term from user
+    out = get_input()  # Get search term from user
 
-    # lang = "en"; foodTerm = "shrimp"
-    lang = "zh"; foodTerm = "蝦"
+    # lang = "en"; foodTerm = "shrimp"   # testing specific entries
+    # lang = "zh"; foodTerm = "蝦"
 
     search(df)  # Search the term given by user
 
-    # entry_list = [10, 43, 1, 5, 2, 3, 1, 5, 6, 10, 9, 1]
+    # entry_list = [10, 43, 1, 5, 2, 3, 1, 5, 6, 10, 9, 1]   # testing sorting
     # print("orig list: " + str(entry_list))
 
     check_duplicate()  # Check if the search results contain any duplicates

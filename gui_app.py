@@ -128,7 +128,7 @@ def gui():
 
     label_credit = tk.Label(master=frame_main)
     label_credit.configure(background="#51C9ED")
-    label_credit.config(text="Made by Tom Sung (2021)")
+    label_credit.config(text="Copyright \u00a9 2021 Tom (Ke-Jun) Sung. All rights reserved.")
     label_credit.pack()
 
     ############ Packing the main frame ############

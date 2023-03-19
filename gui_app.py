@@ -131,6 +131,12 @@ def gui():
     label_credit.config(text="Copyright \u00a9 2021 Tom (Ke-Jun) Sung. All rights reserved.")
     label_credit.pack()
 
+    ############ Bind "Return/Enter" Key to Search Button Event ############
+    def returnBehaviour(event):
+        on_button()
+
+    root.bind("<Return>", returnBehaviour)
+
     ############ Packing the main frame ############
     frame_main.pack(side='top', fill='both', expand='yes', padx=10, pady=10)
     # frame_main.grid(padx=10, pady=10, sticky='nswe')
